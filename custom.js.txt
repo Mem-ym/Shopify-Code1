@@ -1,0 +1,58 @@
+/**
+ * Include your custom JavaScript here.
+ *
+ * We also offer some hooks so you can plug your own logic. For instance, if you want to be notified when the variant
+ * changes on product page, you can attach a listener to the document:
+ *
+ * document.addEventListener('variant:changed', function(event) {
+ *   var variant = event.detail.variant; // Gives you access to the whole variant details
+ * });
+ *
+ * You can also add a listener whenever a product is added to the cart:
+ *
+ * document.addEventListener('product:added', function(event) {
+ *   var variant = event.detail.variant; // Get the variant that was added
+ *   var quantity = event.detail.quantity; // Get the quantity that was added
+ * });
+ *
+ * If you just want to force refresh the mini-cart without adding a specific product, you can trigger the event
+ * "cart:refresh" in a similar way (in that case, passing the quantity is not necessary):
+ *
+ * document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+ *   bubbles: true
+ * }));
+ */
+
+$(document).ready(function(){
+  
+  $('#product-details').prepend('<div class="swiper-container"><div class="product-details-d swiper-wrapper"></div></div>');
+  var count = 0;
+  $('.product-detail-row-1 .pf-r-eh .pf-r-eh').each(function(){
+    count++;
+    $(this).addClass('custom-d-col');
+    $(this).addClass('swiper-slide');
+    $(this).appendTo('.product-details-d');
+    $(this).append('<div class="thumbContainer thumbContainer'+count+'"></div>');
+    $(this).find('.pf-c').appendTo('.thumbContainer'+count+'');
+  });
+  
+});
+
+ $(document).ready(function(){
+    var swiper = new Swiper(".swiper-container", {
+  loopedSlides: 2,
+  loop: false,
+  slidesPerView: "auto",
+  freeMode: true
+});
+
+var thumb = document.querySelectorAll(".thumbContainer");
+
+thumb.forEach(function (image, index) {
+  var delay = index * 90;
+  image.classList.add("fadeInSlide");
+  image.style.animationDelay = delay + "ms";
+});
+
+
+});
